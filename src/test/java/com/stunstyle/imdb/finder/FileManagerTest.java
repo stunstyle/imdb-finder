@@ -42,8 +42,8 @@ public class FileManagerTest {
     @Test
     public void downloadPosterTest() {
         try {
-            fileManager.downloadPoster("Titanic");
-            File file = new File("cache//posters", "Titanic.jpg");
+            fileManager.downloadPoster("Scarface");
+            File file = new File("cache//posters", "Scarface.jpg");
             assertTrue(file.exists());
             file.delete();
         } catch (MovieNotFoundException e) {
