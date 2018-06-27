@@ -13,7 +13,8 @@ import java.util.Iterator;
 import java.util.Set;
 
 public class IMDBServer implements AutoCloseable {
-    public static final int SERVER_PORT = 9989;
+    private static final int SERVER_PORT = 9989;
+    private static final int MAX_MESSAGE_SIZE = 8192;
     private Selector selector;
 
     public IMDBServer(int port) throws IOException {
@@ -52,7 +53,7 @@ public class IMDBServer implements AutoCloseable {
     }
 
     private void read(SelectionKey key) throws IOException {
-        ByteBuffer buf = ByteBuffer.allocate(8192);
+        ByteBuffer buf = ByteBuffer.allocate(MAX_MESSAGE_SIZE);
         SocketChannel sc = (SocketChannel) key.channel();
         while (true) {
             buf.clear();
