@@ -27,8 +27,8 @@ public class JSONManagerTest {
             }
         }
         String[] fields = {"Rated"};
-
-        assertTrue(jm.getJSONFields("Titanic", fields).trim().equals("Rated:PG-13"));
+        System.out.println(jm.getJSONFields("Titanic",fields));
+        assertTrue(jm.getJSONFields("Titanic", fields).trim().equals("Rated:\"PG-13\""));
     }
 
     @Test

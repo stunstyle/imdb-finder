@@ -1,19 +1,17 @@
 package com.stunstyle.imdb.finder.util;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.util.Arrays;
-import java.util.Iterator;
-
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.util.Arrays;
+import java.util.Iterator;
 
 public class JSONManager {
     // responsible for all work with JSON
@@ -27,29 +25,32 @@ public class JSONManager {
     }
 
     public String getJSONFields(String movieName, String[] fields) {
-        String toReturn = null;
         File file = new File("cache", movieName + ".json");
         StringBuilder sb = new StringBuilder();
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            JSONObject json = (JSONObject) (new JSONParser()).parse(br);
-            for (String s : fields) {
-                sb.append(s);
-                sb.append(":");
-                sb.append(json.get(s));
-                sb.append(System.lineSeparator());
+            JsonParser parser = new JsonParser();
+            JsonElement jsonTree = parser.parse(br);
+            if (fields == null) {
+                return jsonTree.toString();
             }
-            toReturn = sb.toString();
+            if (jsonTree.isJsonObject()) {
+                JsonObject json = jsonTree.getAsJsonObject();
+                for (String s : fields) {
+                    sb.append(s);
+                    sb.append(":");
+                    sb.append(json.get(s));
+                    sb.append(System.lineSeparator());
+                }
+                return sb.toString();
+            }
         } catch (FileNotFoundException e) {
             System.err.println("File not found!");
             e.printStackTrace();
         } catch (IOException e) {
             System.err.println("IO Exception while reading JSON!");
             e.printStackTrace();
-        } catch (ParseException e) {
-            System.err.println("Error while parsing JSON!");
-            e.printStackTrace();
         }
-        return toReturn;
+        return null;
     }
 
     public String getEpisodesOfSeriesSeason(String seriesName, int season) {
