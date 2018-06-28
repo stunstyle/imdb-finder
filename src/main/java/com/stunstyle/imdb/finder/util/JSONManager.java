@@ -12,7 +12,6 @@ import org.json.simple.parser.ParseException;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.util.Arrays;
-import java.util.Iterator;
 
 public class JSONManager {
     // responsible for all work with JSON
@@ -61,11 +60,11 @@ public class JSONManager {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             JsonParser parser = new JsonParser();
             JsonElement jsonTree = parser.parse(br);
-            if(jsonTree.isJsonObject()) {
+            if (jsonTree.isJsonObject()) {
                 JsonObject json = jsonTree.getAsJsonObject();
                 sb.append("List of episodes of " + seriesName + ", season " + season);
                 JsonArray episodes = json.getAsJsonArray("Episodes");
-                for(JsonElement e : episodes) {
+                for (JsonElement e : episodes) {
                     sb.append(e.getAsJsonObject().get("Title"));
                     sb.append(System.lineSeparator());
                 }
@@ -118,23 +117,20 @@ public class JSONManager {
     }
 
     public String getImdbIdFromLocalJson(String movieName) {
-        String imdbID = null;
         File file = new File("cache", movieName + ".json");
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            JSONObject json = (JSONObject) (new JSONParser()).parse(br);
-            imdbID = (String) json.get("imdbID");
+            JsonParser parser = new JsonParser();
+            JsonElement jsonTree = parser.parse(br);
+            return jsonTree.getAsJsonObject().get("imdbID").toString().replaceAll("\"", "");
 
         } catch (FileNotFoundException e) {
             System.err.println("File not found in getPoster!");
-            e.printStackTrace();
-        } catch (ParseException e) {
-            System.err.println("Exception while parsing JSON!");
             e.printStackTrace();
         } catch (IOException e) {
             System.err.println("Exception while reading JSON!");
             e.printStackTrace();
         }
-        return imdbID;
+        return null;
     }
 
     public String[] getMovieActors(String movieName) {

@@ -27,7 +27,6 @@ public class JSONManagerTest {
             }
         }
         String[] fields = {"Rated"};
-        System.out.println(jm.getJSONFields("Titanic",fields));
         assertTrue(jm.getJSONFields("Titanic", fields).trim().equals("Rated:\"PG-13\""));
     }
 
@@ -60,6 +59,7 @@ public class JSONManagerTest {
 
     @Test
     public void getImdbIdFromLocalJsonTest() {
+        System.out.println(jm.getImdbIdFromLocalJson("Titanic"));
         assertTrue(jm.getImdbIdFromLocalJson("Titanic").equals("tt0120338"));
     }
 
