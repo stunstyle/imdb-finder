@@ -1,5 +1,6 @@
 package com.stunstyle.imdb.finder.util;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -57,30 +58,27 @@ public class JSONManager {
         File file = new File("cache", seriesName + "_season_" + season + ".json");
         StringBuilder sb = new StringBuilder();
         String toReturn = null;
-        JSONObject json;
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            json = (JSONObject) (new JSONParser()).parse(br);
-            JSONArray episodes = (JSONArray) json.get("Episodes");
-            Iterator<?> iterator = episodes.iterator();
-            sb.append("List of episodes of " + seriesName + ", season " + season);
-            sb.append(System.lineSeparator());
-            while (iterator.hasNext()) {
-                JSONObject curr = ((JSONObject) iterator.next());
-                sb.append(curr.get("Title"));
-                sb.append(System.lineSeparator());
+            JsonParser parser = new JsonParser();
+            JsonElement jsonTree = parser.parse(br);
+            if(jsonTree.isJsonObject()) {
+                JsonObject json = jsonTree.getAsJsonObject();
+                sb.append("List of episodes of " + seriesName + ", season " + season);
+                JsonArray episodes = json.getAsJsonArray("Episodes");
+                for(JsonElement e : episodes) {
+                    sb.append(e.getAsJsonObject().get("Title"));
+                    sb.append(System.lineSeparator());
+                }
+                return sb.toString();
             }
-            toReturn = sb.toString();
         } catch (FileNotFoundException e) {
             System.err.println("File not found while parsing JSON!");
             e.printStackTrace();
         } catch (IOException e) {
             System.err.println("Exception while reading JSON!");
             e.printStackTrace();
-        } catch (ParseException e) {
-            System.err.println("ParseException in getEpisodesOfSeriesSeason!");
-            e.printStackTrace();
         }
-        return toReturn;
+        return null;
 
     }
 
