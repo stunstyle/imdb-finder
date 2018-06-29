@@ -4,6 +4,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 
+import com.stunstyle.imdb.finder.util.MovieToken;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.stunstyle.imdb.finder.exception.MovieNotFoundException;
@@ -59,7 +61,6 @@ public class JSONManagerTest {
 
     @Test
     public void getImdbIdFromLocalJsonTest() {
-        System.out.println(jm.getImdbIdFromLocalJson("Titanic"));
         assertTrue(jm.getImdbIdFromLocalJson("Titanic").equals("tt0120338"));
     }
 
@@ -80,5 +81,11 @@ public class JSONManagerTest {
         String[] titanicGenres = {"Drama","Romance"};
         Arrays.stream(movieGenres).map(String::trim).toArray(unused -> movieGenres);
         assertTrue(Arrays.asList(movieGenres).equals(Arrays.asList(titanicGenres)));
+    }
+
+    @Test
+    public void newJsonTest() {
+        jm.getMovieTokens("Titanic", MovieToken.GENRE);
+        jm.getMovieTokens("Titanic", MovieToken.ACTORS);
     }
 }

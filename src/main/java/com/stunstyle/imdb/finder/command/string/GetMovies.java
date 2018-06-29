@@ -5,10 +5,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import com.stunstyle.imdb.finder.util.CommandParser;
-import com.stunstyle.imdb.finder.util.FileManager;
-import com.stunstyle.imdb.finder.util.JSONManager;
-import com.stunstyle.imdb.finder.util.MovieRatingPair;
+import com.stunstyle.imdb.finder.util.*;
 
 public class GetMovies implements StringCommand {
     private String command;
@@ -32,7 +29,7 @@ public class GetMovies implements StringCommand {
         Iterator<MovieRatingPair> it = allMoviePairs.iterator();
         while (it.hasNext()) {
             MovieRatingPair curr = it.next();
-            if (!JSONManager.getJSONManager().movieHasActors(curr.getMovieName(), actors)) {
+            if (!JSONManager.getJSONManager().movieHasTokens(curr.getMovieName(), actors, MovieToken.ACTORS)) {
                 it.remove();
             }
         }
@@ -41,7 +38,7 @@ public class GetMovies implements StringCommand {
             it = allMoviePairs.iterator();
             while (it.hasNext()) {
                 MovieRatingPair curr = it.next();
-                if (!JSONManager.getJSONManager().movieHasGenres(curr.getMovieName(), genres)) {
+                if (!JSONManager.getJSONManager().movieHasTokens(curr.getMovieName(), genres, MovieToken.GENRE)) {
                     it.remove();
                 }
             }

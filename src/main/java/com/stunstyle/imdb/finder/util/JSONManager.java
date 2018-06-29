@@ -187,17 +187,27 @@ public class JSONManager {
         return genresStrings;
     }
 
-    public boolean movieHasGenres(String movieName, String[] genres) {
-
-        String[] movieGenres = getMovieGenres(movieName);
-
-        return Arrays.asList(movieGenres).containsAll(Arrays.asList(genres));
+    public String[] getMovieTokens(String movieName, MovieToken token) {
+        File file = new File("cache", movieName + ".json");
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            JsonParser parser = new JsonParser();
+            JsonElement jsonTree = parser.parse(br);
+            if(jsonTree.isJsonObject()) {
+                JsonObject json = jsonTree.getAsJsonObject();
+                String tokens = json.get(token.getJsonId()).toString().replaceAll("\"","").replaceAll(" ", "");
+                return tokens.split(",");
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
-    public boolean movieHasActors(String movieName, String[] actors) {
-
-        String[] movieActors = getMovieActors(movieName);
-        return Arrays.asList(movieActors).containsAll(Arrays.asList(actors));
+    public boolean movieHasTokens(String movieName, String[] tokens, MovieToken token) {
+        String[] movieTokens = getMovieTokens(movieName, token);
+        return Arrays.asList(movieTokens).containsAll(Arrays.asList(tokens));
     }
 
     public boolean isValidResponse(HttpURLConnection conn) {
