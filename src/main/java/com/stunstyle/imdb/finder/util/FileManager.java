@@ -165,21 +165,16 @@ public class FileManager {
 
     public List<MovieRatingPair> getAllCachedMoviePairs() {
         List<Path> jsonFiles = getAllJsonFiles();
-        JSONParser parser = new JSONParser();
-
         List<MovieRatingPair> pairs = new ArrayList<>();
+        JSONManager jsonManager = JSONManager.getJSONManager();
         for (Path file : jsonFiles) {
             try (BufferedReader br = new BufferedReader(new FileReader(file.toFile()))) {
                 if (!file.getFileName().toString().contains("_season_")) {
-                    JSONObject curr = (JSONObject) parser.parse(br);
-                    pairs.add(new MovieRatingPair(curr.get("Title").toString().replace(" ", "%20"),
-                            (String) curr.get("imdbRating")));
+                    pairs.add(new MovieRatingPair(jsonManager.getField(br, "Title"),
+                            jsonManager.getField(br,"imdbRating")));
                 }
             } catch (IOException e) {
                 System.err.println("Error while reading files!");
-                e.printStackTrace();
-            } catch (ParseException e) {
-                System.err.println("Error while parsing json!");
                 e.printStackTrace();
             }
         }
