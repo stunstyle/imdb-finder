@@ -64,25 +64,7 @@ public class JSONManagerTest {
         assertTrue(jm.getImdbIdFromLocalJson("Titanic").equals("tt0120338"));
     }
 
-    @Test
-    public void getMovieActorsTest() {
-        String[] movieActors = jm.getMovieActors("Titanic");
-        String[] titanicActors = {"Leonardo DiCaprio",
-                "Kate Winslet",
-                "Billy Zane",
-                "Kathy Bates"};
-        Arrays.stream(movieActors).map(String::trim).toArray(unused -> movieActors);
-        assertTrue(Arrays.asList(movieActors).equals(Arrays.asList(titanicActors)));
-    }
-
-    @Test
-    public void getMovieGenresTest() {
-        String[] movieGenres = jm.getMovieGenres("Titanic");
-        String[] titanicGenres = {"Drama","Romance"};
-        Arrays.stream(movieGenres).map(String::trim).toArray(unused -> movieGenres);
-        assertTrue(Arrays.asList(movieGenres).equals(Arrays.asList(titanicGenres)));
-    }
-
+    // TODO: ADD NEW TEST FOR GETMOVIETOKENS
     @Test
     public void newJsonTest() {
         jm.getMovieTokens("Titanic", MovieToken.GENRE);
