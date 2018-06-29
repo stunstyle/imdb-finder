@@ -179,7 +179,15 @@ public class JSONManager {
             e.printStackTrace();
         }
         return false;
+    }
 
-
+    public String getFieldFromReader(Reader reader, String field) {
+        JsonParser parser = new JsonParser();
+        JsonElement jsonTree = parser.parse(reader);
+        if(jsonTree.isJsonObject()){
+            JsonObject json = jsonTree.getAsJsonObject();
+            return json.get(field).toString().replaceAll("\"", "");
+        }
+        return "Unknown";
     }
 }
