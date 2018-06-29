@@ -92,12 +92,6 @@ public class JSONManager {
                 }
 
             }
-            /*
-            JSONObject json = (JSONObject) (new JSONParser()).parse(br);
-            JSONArray movie_results = (JSONArray) json.get("movie_results");
-            JSONObject my_result = (JSONObject) movie_results.get(0);
-            poster_path = (String) my_result.get("poster_path");
-            */
         } catch (IOException e) {
             System.err.println("IOException while reading json via HTTP!");
             e.printStackTrace();
