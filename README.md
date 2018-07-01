@@ -5,9 +5,11 @@
 ## Prerequisites
 You need JRE 9+ installed to run this project.
 Download the latest JRE here:
-`http://www.oracle.com/technetwork/java/javase/downloads/index.html`
+
+http://www.oracle.com/technetwork/java/javase/downloads/index.html
 ## Installation
 Clone this repository to your computer:
+
 `git clone https://github.com/stunstyle/imdb-finder`
 
 ## How to run
