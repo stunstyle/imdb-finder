@@ -14,9 +14,13 @@ Clone this repository to your computer:
 
 ## How to run
 1. Run IMDBServer:
+
+
 `java -cp target/imdb-finder-1.0-SNAPSHOT.jar com.stunstyle.imdb.finder.IMDBServer`
 
 2. Connect one or more clients:
+
+
 `java -cp target/imdb-finder-1.0-SNAPSHOT.jar com.stunstyle.imdb.finder.IMDBClient`
 
 ## Usage
