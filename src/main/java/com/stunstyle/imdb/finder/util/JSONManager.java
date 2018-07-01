@@ -152,7 +152,7 @@ public class JSONManager {
             JsonElement jsonTree = parser.parse(br);
             if (jsonTree.isJsonObject()) {
                 JsonObject json = jsonTree.getAsJsonObject();
-                String tokens = json.get(token.getJsonId()).toString().replaceAll("\"", "");
+                String tokens = json.get(token.getJsonId()).toString().replaceAll("\"", "").replaceAll(", ", ",");
                 return tokens.split(",");
             }
         } catch (FileNotFoundException e) {
