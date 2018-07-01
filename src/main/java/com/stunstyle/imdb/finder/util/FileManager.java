@@ -170,8 +170,7 @@ public class FileManager {
         for (Path file : jsonFiles) {
             try (BufferedReader br = new BufferedReader(new FileReader(file.toFile()))) {
                 if (!file.getFileName().toString().contains("_season_")) {
-                    pairs.add(new MovieRatingPair(jsonManager.getFieldFromReader(br, "Title"),
-                            jsonManager.getFieldFromReader(br,"imdbRating")));
+                    pairs.add(jsonManager.constructPairFromReader(br));
                 }
             } catch (IOException e) {
                 System.err.println("Error while reading files!");

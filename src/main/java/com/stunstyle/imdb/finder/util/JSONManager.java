@@ -145,13 +145,14 @@ public class JSONManager {
     }
 
     public String[] getMovieTokens(String movieName, MovieToken token) {
-        File file = new File("cache", movieName + ".json");
+        File file = new File("cache", movieName.replaceAll(" ","%20") + ".json");
+        System.out.println("file: " + file + "for movie name: " + movieName);
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             JsonParser parser = new JsonParser();
             JsonElement jsonTree = parser.parse(br);
             if (jsonTree.isJsonObject()) {
                 JsonObject json = jsonTree.getAsJsonObject();
-                String tokens = json.get(token.getJsonId()).toString().replaceAll("\"", "").replaceAll(" ", "");
+                String tokens = json.get(token.getJsonId()).toString().replaceAll("\"", "");
                 return tokens.split(",");
             }
         } catch (FileNotFoundException e) {
@@ -164,6 +165,9 @@ public class JSONManager {
 
     public boolean movieHasTokens(String movieName, String[] tokens, MovieToken token) {
         String[] movieTokens = getMovieTokens(movieName, token);
+        if(movieTokens == null){
+            return false;
+        }
         return Arrays.asList(movieTokens).containsAll(Arrays.asList(tokens));
     }
 
@@ -184,14 +188,16 @@ public class JSONManager {
         return false;
     }
 
-    public String getFieldFromReader(Reader reader, String field) {
+
+    public MovieRatingPair constructPairFromReader(Reader reader) {
         JsonParser parser = new JsonParser();
         JsonElement jsonTree = parser.parse(reader);
         if (jsonTree.isJsonObject()) {
             JsonObject json = jsonTree.getAsJsonObject();
-            return json.get(field).toString().replaceAll("\"", "");
+            return new MovieRatingPair(json.get("Title").toString().replaceAll("\"",""),json.get("imdbRating").toString().replaceAll("\"",""));
+            // System.out.println(json.get("Title") + json.get("imdbRating").toString());
         }
-        return "Unknown";
+        return null;
     }
 
     public String getAllFields(Reader reader) {

@@ -29,6 +29,10 @@ public class GetMovies implements StringCommand {
         Iterator<MovieRatingPair> it = allMoviePairs.iterator();
         while (it.hasNext()) {
             MovieRatingPair curr = it.next();
+            String[] tokens = JSONManager.getJSONManager().getMovieTokens(curr.getMovieName(),MovieToken.ACTORS);
+            for(String s : tokens) {
+                System.out.println(curr.getMovieName() + " " + s);
+            }
             if (!JSONManager.getJSONManager().movieHasTokens(curr.getMovieName(), actors, MovieToken.ACTORS)) {
                 it.remove();
             }
