@@ -31,11 +31,14 @@ public class JSONManager {
             }
             if (jsonTree.isJsonObject()) {
                 JsonObject json = jsonTree.getAsJsonObject();
+                int count = fields.length;
                 for (String s : fields) {
                     sb.append(s);
                     sb.append(":");
                     sb.append(json.get(s));
-                    sb.append(System.lineSeparator());
+                    if (count-- != 0) {
+                        sb.append(System.lineSeparator());
+                    }
                 }
                 return sb.toString();
             }
@@ -184,14 +187,14 @@ public class JSONManager {
     public String getFieldFromReader(Reader reader, String field) {
         JsonParser parser = new JsonParser();
         JsonElement jsonTree = parser.parse(reader);
-        if(jsonTree.isJsonObject()){
+        if (jsonTree.isJsonObject()) {
             JsonObject json = jsonTree.getAsJsonObject();
             return json.get(field).toString().replaceAll("\"", "");
         }
         return "Unknown";
     }
 
-    public String getAllFields(Reader reader){
+    public String getAllFields(Reader reader) {
         JsonParser parser = new JsonParser();
         JsonElement element = parser.parse(reader);
         return element.toString();
