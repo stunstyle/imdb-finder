@@ -1,16 +1,11 @@
 package com.stunstyle.imdb.finder.command.string;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import com.stunstyle.imdb.finder.exception.MovieNotFoundException;
 import com.stunstyle.imdb.finder.util.CommandParser;
 import com.stunstyle.imdb.finder.util.FileManager;
 import com.stunstyle.imdb.finder.util.JSONManager;
 
 import java.io.*;
-
-//import org.json.simple.parser.JSONParser;
-//import org.json.simple.parser.ParseException;
 
 public class GetMovie implements StringCommand {
     private String command;
