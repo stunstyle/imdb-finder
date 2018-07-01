@@ -190,4 +190,10 @@ public class JSONManager {
         }
         return "Unknown";
     }
+
+    public String getAllFields(Reader reader){
+        JsonParser parser = new JsonParser();
+        JsonElement element = parser.parse(reader);
+        return element.toString();
+    }
 }
