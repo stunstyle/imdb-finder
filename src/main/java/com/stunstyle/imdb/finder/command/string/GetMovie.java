@@ -1,21 +1,16 @@
 package com.stunstyle.imdb.finder.command.string;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-
-import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-//import org.json.simple.parser.JSONParser;
-//import org.json.simple.parser.ParseException;
-
 import com.stunstyle.imdb.finder.exception.MovieNotFoundException;
 import com.stunstyle.imdb.finder.util.CommandParser;
 import com.stunstyle.imdb.finder.util.FileManager;
 import com.stunstyle.imdb.finder.util.JSONManager;
+
+import java.io.*;
+
+//import org.json.simple.parser.JSONParser;
+//import org.json.simple.parser.ParseException;
 
 public class GetMovie implements StringCommand {
     private String command;
@@ -29,6 +24,7 @@ public class GetMovie implements StringCommand {
         // String toReturn = null;
         String movieName = CommandParser.getCommandParser().getMovieName(command);
         FileManager fm = FileManager.getFM();
+        JSONManager jm = JSONManager.getJSONManager();
 
         if (!fm.movieExistsInCache(movieName)) {
             try {
@@ -39,31 +35,26 @@ public class GetMovie implements StringCommand {
                 return e.getMessage();
             }
         }
-
         String[] fields = CommandParser.getCommandParser().getFields(command);
-        String toReturn = JSONManager.getJSONManager().getJSONFields(movieName,fields);
 
         if (fields == null) {
             File file = new File("cache", movieName + ".json");
             try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-                JsonParser parser = new JsonParser();
-                JsonElement element = parser.parse(br);
-                toReturn = element.toString();
-                // toReturn = new Gson().fromJson(br, Object.class);// (new JSONParser()).parse(br).toString();
-            } /*catch (ParseException e) {
-                System.err.println("Error while parsing JSON!");
-                e.printStackTrace();
-            } */catch (FileNotFoundException e1) {
+                return jm.getAllFields(br);
+
+            } catch (FileNotFoundException e1) {
                 System.err.println("File not found while getting movie!");
                 e1.printStackTrace();
             } catch (IOException e1) {
                 System.err.println("Error while reading and parsing JSON in GetMovie!");
                 e1.printStackTrace();
             }
-        } else {
-            toReturn = JSONManager.getJSONManager().getJSONFields(movieName, fields);
+        } else
+
+        {
+            return jm.getJSONFields(movieName, fields);
         }
-        return toReturn;
+        return "Unknown";
     }
 
 }
