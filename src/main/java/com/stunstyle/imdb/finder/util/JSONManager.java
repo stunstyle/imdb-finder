@@ -62,6 +62,7 @@ public class JSONManager {
             if (jsonTree.isJsonObject()) {
                 JsonObject json = jsonTree.getAsJsonObject();
                 sb.append("List of episodes of " + seriesName + ", season " + season);
+                sb.append(System.lineSeparator());
                 JsonArray episodes = json.getAsJsonArray("Episodes");
                 for (JsonElement e : episodes) {
                     sb.append(e.getAsJsonObject().get("Title"));
