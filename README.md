@@ -51,3 +51,10 @@ These commands need to be entered in a client's console.
 - `clear-cache`
 
    *clears local cache*
+   
+   ## Future goals
+   - [x] Migrate to [gson](https://github.com/google/gson)
+   - [ ] Create a GUI
+   - [ ] Improve util package hierarchy
+   - [ ] Add support for external config file
+   - [ ] Achieve and maintain 75% code coverage
