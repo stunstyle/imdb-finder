@@ -145,7 +145,6 @@ public class JSONManager {
 
     public String[] getMovieTokens(String movieName, MovieToken token) {
         File file = new File("cache", movieName.replaceAll(" ","%20") + ".json");
-        System.out.println("file: " + file + "for movie name: " + movieName);
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             JsonParser parser = new JsonParser();
             JsonElement jsonTree = parser.parse(br);
