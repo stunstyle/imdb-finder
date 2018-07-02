@@ -62,7 +62,7 @@ public class IMDBClient {
                 break;
             }
         }
-        return StandardCharsets.UTF_8.decode(buf).toString();
+        return StandardCharsets.UTF_8.decode(buf).toString().trim();
     }
 
     private static void connectToServer(SocketChannel sc, String hostname, int port) throws IOException {
