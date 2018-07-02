@@ -1,12 +1,13 @@
 package com.stunstyle.imdb.finder;
 
-import static org.junit.Assert.*;
+import com.stunstyle.imdb.finder.util.CommandParser;
+import org.junit.Test;
 
 import java.util.Arrays;
 
-import org.junit.Test;
-
-import com.stunstyle.imdb.finder.util.CommandParser;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 public class CommandParserTest {
 
@@ -15,6 +16,12 @@ public class CommandParserTest {
         CommandParser commandParser = CommandParser.getCommandParser();
         assertTrue("this command's name should be get-movie",
                 commandParser.getCommandName("get-movie Titanic").equals("get-movie"));
+        assertTrue("this command's name should be get-movie",
+                commandParser.getCommandName("get-movie The Revenant --fields=Genre,Actors").equals("get-movie"));
+        assertTrue("this command's name should be get-tv-series",
+                commandParser.getCommandName("get-tv-series Dexter --season=5").equals("get-tv-series"));
+        assertTrue("this command's name should be get-tv-series",
+                commandParser.getCommandName("get-tv-series Rick And Morty --season=2").equals("get-tv-series"));
     }
 
     @Test
@@ -53,9 +60,11 @@ public class CommandParserTest {
     @Test
     public void getFieldsTest() {
         CommandParser commandParser = CommandParser.getCommandParser();
-        String[] fields = { "Website", "Rated", "imdbRating" };
+        String[] fields = {"Website", "Rated", "imdbRating"};
         assertTrue(
                 Arrays.equals(fields, commandParser.getFields("get-movie Titanic --fields=Website,Rated,imdbRating")));
+        assertNull("should return null as there are no fields in this command", commandParser.getFields("get-movie Titanic"));
+
     }
 
     @Test
@@ -68,18 +77,29 @@ public class CommandParserTest {
     @Test
     public void getGenresTest() {
         CommandParser commandParser = CommandParser.getCommandParser();
-        String[] genres = { "Action", "Comedy", "Thriller" };
+        String[] genres = {"Action", "Comedy", "Thriller"};
         assertTrue(Arrays.equals(genres,
                 commandParser.getGenres("get-movies --order=asc --genres=Action,Comedy,Thriller")));
         assertNull(commandParser.getGenres("get-movies --actors=Leonardo Di Caprio"));
     }
 
     @Test
-    public void getActors() {
+    public void getActorsTest() {
         CommandParser commandParser = CommandParser.getCommandParser();
-        String[] actors = { "Leonardo Di Caprio", "Kit Harrington", "Al Pacino" };
+        String[] actors = {"Leonardo Di Caprio", "Kit Harrington", "Al Pacino"};
         assertTrue(Arrays.equals(actors, commandParser
                 .getActors("get-movies --order=asc --actors=Leonardo Di Caprio,Kit Harrington,Al Pacino")));
+    }
+
+    @Test
+    public void commandIsValidTest() {
+        CommandParser commandParser = CommandParser.getCommandParser();
+        assertTrue("get-movie should be valid", commandParser.commandIsValid("get-movie The Incredibles"));
+        assertFalse("random letters should be invalid", commandParser.commandIsValid("fdsczxsd sdlflxv fsdfs"));
+        assertTrue("clear-cache should be valid", commandParser.commandIsValid("clear-cache"));
+        assertFalse("empty command should be invalid", commandParser.commandIsValid(""));
+        assertTrue("get-movie-poster should be valid", commandParser.commandIsValid("get-movie-poster The Godfather"));
+
     }
 
 }
