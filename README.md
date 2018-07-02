@@ -58,3 +58,4 @@ These commands need to be entered in a client's console.
    - [ ] Improve util package hierarchy
    - [ ] Add support for external config file
    - [ ] Achieve and maintain 75% code coverage
+   - [ ] Add support for logging for the server
