@@ -1,11 +1,11 @@
 package com.stunstyle.imdb.finder.command.string;
 
+import com.stunstyle.imdb.finder.util.*;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-
-import com.stunstyle.imdb.finder.util.*;
 
 public class GetMovies implements StringCommand {
     private String command;
@@ -29,8 +29,8 @@ public class GetMovies implements StringCommand {
         Iterator<MovieRatingPair> it = allMoviePairs.iterator();
         while (it.hasNext()) {
             MovieRatingPair curr = it.next();
-            String[] tokens = JSONManager.getJSONManager().getMovieTokens(curr.getMovieName(),MovieToken.ACTORS);
-            for(String s : tokens) {
+            String[] tokens = JSONManager.getJSONManager().getMovieTokens(curr.getMovieName(), MovieToken.ACTORS);
+            for (String s : tokens) {
                 s = s.trim();
             }
             if (!JSONManager.getJSONManager().movieHasTokens(curr.getMovieName(), actors, MovieToken.ACTORS)) {

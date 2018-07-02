@@ -1,25 +1,14 @@
 package com.stunstyle.imdb.finder.util;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.file.DirectoryStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.stunstyle.imdb.finder.exception.MovieNotFoundException;
 import com.stunstyle.imdb.finder.exception.SeriesOrSeasonNotFoundException;
+
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.file.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FileManager {
     // responsible for file downloading and creation

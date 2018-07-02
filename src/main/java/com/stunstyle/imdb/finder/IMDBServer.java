@@ -29,6 +29,15 @@ public class IMDBServer implements AutoCloseable {
 
     }
 
+    public static void main(String[] args) {
+        try (IMDBServer mainServer = new IMDBServer(SERVER_PORT)) {
+            mainServer.start();
+        } catch (IOException e) {
+            System.err.println("ERROR: could not create server");
+            e.printStackTrace();
+        }
+    }
+
     public void start() throws IOException {
         System.out.println("IMDB Server running!");
         while (true) {
@@ -90,15 +99,6 @@ public class IMDBServer implements AutoCloseable {
             }
         } catch (IOException e) {
             // nothing we can do
-            e.printStackTrace();
-        }
-    }
-
-    public static void main(String[] args) {
-        try (IMDBServer mainServer = new IMDBServer(SERVER_PORT)) {
-            mainServer.start();
-        } catch (IOException e) {
-            System.err.println("ERROR: could not create server");
             e.printStackTrace();
         }
     }

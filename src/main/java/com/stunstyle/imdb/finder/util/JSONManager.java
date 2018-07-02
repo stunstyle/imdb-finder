@@ -144,7 +144,7 @@ public class JSONManager {
     }
 
     public String[] getMovieTokens(String movieName, MovieToken token) {
-        File file = new File("cache", movieName.replaceAll(" ","%20") + ".json");
+        File file = new File("cache", movieName.replaceAll(" ", "%20") + ".json");
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             JsonParser parser = new JsonParser();
             JsonElement jsonTree = parser.parse(br);
@@ -163,7 +163,7 @@ public class JSONManager {
 
     public boolean movieHasTokens(String movieName, String[] tokens, MovieToken token) {
         String[] movieTokens = getMovieTokens(movieName, token);
-        if(movieTokens == null){
+        if (movieTokens == null) {
             return false;
         }
         return Arrays.asList(movieTokens).containsAll(Arrays.asList(tokens));
@@ -192,7 +192,7 @@ public class JSONManager {
         JsonElement jsonTree = parser.parse(reader);
         if (jsonTree.isJsonObject()) {
             JsonObject json = jsonTree.getAsJsonObject();
-            return new MovieRatingPair(json.get("Title").toString().replaceAll("\"",""),json.get("imdbRating").toString().replaceAll("\"",""));
+            return new MovieRatingPair(json.get("Title").toString().replaceAll("\"", ""), json.get("imdbRating").toString().replaceAll("\"", ""));
             // System.out.println(json.get("Title") + json.get("imdbRating").toString());
         }
         return null;

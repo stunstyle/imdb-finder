@@ -1,13 +1,13 @@
 package com.stunstyle.imdb.finder;
 
-import java.nio.charset.StandardCharsets;
-
 import com.stunstyle.imdb.finder.command.file.GetPoster;
 import com.stunstyle.imdb.finder.command.string.ClearCache;
 import com.stunstyle.imdb.finder.command.string.GetMovie;
 import com.stunstyle.imdb.finder.command.string.GetMovies;
 import com.stunstyle.imdb.finder.command.string.GetTvSeries;
 import com.stunstyle.imdb.finder.util.CommandParser;
+
+import java.nio.charset.StandardCharsets;
 
 public class IMDBCommandProcessor {
     private String command;
@@ -18,7 +18,7 @@ public class IMDBCommandProcessor {
 
     public byte[] processCommand() {
         CommandParser commandParser = CommandParser.getCommandParser();
-        if(!commandParser.commandIsValid(command)) {
+        if (!commandParser.commandIsValid(command)) {
             return "Invalid command!".getBytes(StandardCharsets.UTF_8);
         }
 

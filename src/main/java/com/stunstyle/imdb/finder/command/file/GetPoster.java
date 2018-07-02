@@ -25,8 +25,7 @@ public class GetPoster implements FileCommand {
                 e.printStackTrace();
                 return new byte[0];
             }
-        }
-        else {
+        } else {
             return fm.getPosterBytes("Titanic");
         }
 

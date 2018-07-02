@@ -12,7 +12,7 @@ public enum MovieToken {
         this.jsonId = jsonId;
     }
 
-    public String getJsonId(){
+    public String getJsonId() {
         return jsonId;
     }
 }

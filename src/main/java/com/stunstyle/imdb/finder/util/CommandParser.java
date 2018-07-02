@@ -114,7 +114,7 @@ public class CommandParser {
     }
 
     public boolean commandIsValid(String command) {
-        switch(getCommandName(command)) {
+        switch (getCommandName(command)) {
             case "get-movie":
                 return true;
             case "get-tv-series":
