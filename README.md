@@ -3,7 +3,7 @@
 <hr>
 
 ## Prerequisites
-You need JRE 9+ installed to run this project.
+JRE 9+ is required to run this project.
 Download the latest JRE here:
 
 http://www.oracle.com/technetwork/java/javase/downloads/index.html
