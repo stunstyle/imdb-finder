@@ -18,9 +18,11 @@ import java.util.Scanner;
 public class IMDBClient {
     private static final int MAX_MESSAGE_SIZE = 8192;
     private static final int MAX_IMAGE_SIZE = 131072;       // 2^17
+    private static final int MAX_DOWNLOAD_SLEEP_TIME = 5000;
+    private static final int MAX_SLEEP_TIME = 512;
 
     private static void downloadPoster(SocketChannel sc, String movieName) throws InterruptedException, IOException {
-        Thread.sleep(5000);
+        Thread.sleep(MAX_DOWNLOAD_SLEEP_TIME);
         ByteBuffer buf = ByteBuffer.allocate(MAX_IMAGE_SIZE);
         buf.clear();
         while (true) {
@@ -54,7 +56,7 @@ public class IMDBClient {
     }
 
     private static String readCommandResult(SocketChannel sc) throws IOException {
-        ByteBuffer buf = ByteBuffer.allocate(8192);
+        ByteBuffer buf = ByteBuffer.allocate(MAX_MESSAGE_SIZE);
         while (true) {
             buf.clear();
             int r = sc.read(buf);
@@ -97,7 +99,7 @@ public class IMDBClient {
                     String command = scanner.nextLine();
                     if (!command.equals("quit")) {
                         sendCommandToServer(sc, command);
-                        Thread.sleep(500);
+                        Thread.sleep(MAX_SLEEP_TIME);
                         if (command.startsWith("get-movie-poster")) {
                             String movieName = CommandParser.getCommandParser().getMovieName(command);
                             downloadPoster(sc, movieName);
