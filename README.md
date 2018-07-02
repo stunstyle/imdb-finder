@@ -27,17 +27,17 @@ Clone this repository to your computer:
 These commands need to be entered in a client's console.
 - `get-movie <movie_name> --fields=[field_1,field_2]`
 
-   *returns info about movie in JSON format
+   *returns info about movie in JSON format*
    
-   if movie is not in local cache, it is downloaded via the OMDB API*
+   *if movie is not in local cache, it is downloaded via the OMDB API*
    
    ![get-movie-example](assets/get-movie-example.png?raw=true "Example for get-movie")
 
 - `get-movies --order=[asc|desc] --genres=[genre_1, genre_2] --actors=[actor_1, actor_2]`
 
-   *returns info about all movies featuring selected actors
+   *returns info about all movies featuring selected actors*
    
-   NOTE: works only for movies located in local cache*
+   *NOTE: works only for movies located in local cache*
    
    ![get-movies-example](assets/get-movies-example.png?raw=true "Example for get-movies")
 - `get-tv-series <name> --season=<value>`
