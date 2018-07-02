@@ -42,7 +42,7 @@ public class JSONManagerTest {
                 e.printStackTrace();
             }
 
-            assertTrue(jm.getEpisodesOfSeriesSeason("Dexter", 7).equals("List of episodes of Dexter, season 7\r\n" +
+            assertTrue(jm.getEpisodesOfSeriesSeason("Dexter", 7).equals(
                     "Are You...?\r\n" +
                     "Sunshine and Frosty Swirl\r\n" +
                     "Buck the System\r\n" +
@@ -65,9 +65,4 @@ public class JSONManagerTest {
     }
 
     // TODO: ADD NEW TEST FOR GETMOVIETOKENS
-    @Test
-    public void newJsonTest() {
-        jm.getMovieTokens("Titanic", MovieToken.GENRE);
-        jm.getMovieTokens("Titanic", MovieToken.ACTORS);
-    }
 }
