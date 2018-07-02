@@ -1,4 +1,4 @@
-package com.stunstyle.imdb.finder;
+package com.stunstyle.imdb.finder.util;
 
 import com.stunstyle.imdb.finder.util.CommandParser;
 import org.junit.Test;

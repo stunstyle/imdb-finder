@@ -1,4 +1,4 @@
-package com.stunstyle.imdb.finder.test;
+package com.stunstyle.imdb.finder.util;
 
 import static org.junit.Assert.*;
 
